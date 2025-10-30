@@ -432,8 +432,8 @@ Ejecuta el conjunto de pruebas usando el siguiente comando:
 
 - En esta versión, los valores del fichero application.properties no están parametrizados. Además, las contraseñas están expuestas. Se ha hecho así por simplicidad, ya que se trata de una prueba. Sin embargo, deberían estar definidos según el entorno en el que se ejecute, lo cual se podría hacer de la siguiente forma:
 	- Usar distintos perfiles de Spring Boot según el entorno.
-		- Parametrizar los datos, y definir los valores en cada fichero referente al entorno (application.properties y/o docker-compose.yml).
-		- Los ficheros que contengan contraseñas no deben subirse al repositorio.
+	- Parametrizar los datos, y definir los valores en cada fichero referente al entorno (application.properties y/o docker-compose.yml).
+	- Los ficheros que contengan contraseñas no deben subirse al repositorio.
 
 
 - Actualmente, la API no implementa mecanismos de autenticación o autorización, debido a que no se ha definido si el acceso será público o restringido. La arquitectura permite añadir seguridad en el futuro (por ejemplo, tokens JWT o API keys) una vez se establezcan los requisitos de acceso.

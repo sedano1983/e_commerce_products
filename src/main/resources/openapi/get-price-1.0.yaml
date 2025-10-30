@@ -1,0 +1,121 @@
+openapi: 3.0.1
+info:
+  title: API para consulta de Tarifas de Producto
+  version: v1
+servers:
+- url: http://localhost:8080
+  description: Generated server url
+tags:
+- name: prices
+  description: Gestión de tarifas de producto
+paths:
+  "/api/v1/prices":
+    get:
+      tags:
+      - prices
+      summary: Obtiene la tarifa aplicada a un producto, en una fecha concreta. Si dos tarifas coinciden en un rango de fechas, se aplica la de mayor prioridad (mayor valor numérico)
+      operationId: getApplicablePriceByDateV1
+      parameters:
+      - name: applicationDate
+        in: query
+        description: Fecha de aplicación
+        required: true
+        schema:
+          type: string
+          format: date-time
+          example: "2025-10-23T10:00:00Z"
+      - name: productId
+        in: query
+        description: Identificador de producto
+        required: true
+        schema:
+          type: integer
+          format: int64
+          example: 1
+      - name: brandId
+        in: query
+        description: Identificador de la cadena del grupo
+        required: true
+        schema:
+          type: integer
+          format: int64
+          example: 1
+      responses:
+        '200':
+          description: Tarifa obtenida con éxito
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/PriceDTOv1"
+        '400':
+          description: Parámetros inválidos (por ejemplo, fecha con formato incorrecto)
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ErrorResponse"
+        '404':
+          description: Producto no encontrado o sin tarifa aplicable en esa fecha
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ErrorResponse"
+components:
+  schemas:
+    PriceDTOv1:
+      type: object
+      properties:
+        brandId:
+          type: integer
+          description: Identificador de la cadena del grupo
+          format: int64
+          example: 1
+        startDate:
+          type: string
+          description: Fecha de inicio del rango en el que aplica el precio tarifa
+            indicado
+          format: date-time
+          example: "2025-10-23T10:00:00Z"
+        endDate:
+          type: string
+          description: Fecha de fin del rango en el que aplica el precio tarifa indicado
+          format: date-time
+        rateId:
+          type: integer
+          description: Identificador de la tarifa de precios aplicable
+          format: int64
+          example: 1
+        productId:
+          type: integer
+          description: Identificador código de producto
+          format: int64
+          example: 1
+        price:
+          type: number
+          description: Precio final de venta
+          example: 39.99
+    ErrorResponse:
+      required:
+        - error
+        - message
+        - status
+        - timestamp
+      type: object
+      properties:
+        timestamp:
+          type: string
+          description: Fecha y hora en la que se produce el error
+          format: date-time
+          example: "2025-10-23T10:00:00Z"
+        status:
+          type: integer
+          description: Estado del error
+          format: int32
+          example: 404
+        error: 
+          type: string
+          description: Error
+          example: "Not found"
+        message: 
+          type: string
+          description: Mensaje del error
+          example: "Producto no encontrado o sin tarifa aplicable en esa fecha"

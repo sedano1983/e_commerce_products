@@ -1,0 +1,8 @@
+additionalProperties:
+  apiPackage: com.ecommerce.products.infrastructure.controller
+  modelPackage: com.ecommerce.products.domain.model
+  invokerPackage: com.ecommerce.products
+  dateLibrary: java8
+  hideGenerationTimestamp: true
+  groupId: com.ecommerce
+  artifactId: products

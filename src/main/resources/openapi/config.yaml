@@ -1,5 +1,5 @@
 additionalProperties:
-  apiPackage: com.ecommerce.products.infrastructure.controller
+  apiPackage: com.ecommerce.products.infrastructure.rest
   modelPackage: com.ecommerce.products.domain.model
   invokerPackage: com.ecommerce.products
   dateLibrary: java8
